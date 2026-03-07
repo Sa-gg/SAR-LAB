@@ -142,25 +142,34 @@ cd ../enrollment-service && composer install
 
 ### 2. Configure Environment
 
-Each service needs a `.env` file. Copy from `.env.example` and set:
+Each service ships with a `.env.example`. Copy it to `.env` and generate an app key:
 
-```dotenv
-# All services use SQLite
-DB_CONNECTION=sqlite
-DB_DATABASE=C:/absolute/path/to/database.sqlite
+```bash
+# Monolithic app
+cd academe
+cp .env.example .env
+php artisan key:generate
+
+# Student Service
+cd ../microservices/student-service
+cp .env.example .env
+php artisan key:generate
+
+# Course Service
+cd ../course-service
+cp .env.example .env
+php artisan key:generate
+
+# Enrollment Service
+cd ../enrollment-service
+cp .env.example .env
+php artisan key:generate
 ```
 
-For the monolithic app (`academe/.env`), also set:
+All services are pre-configured for SQLite with no extra database setup required.
 
-```dotenv
-APP_BACKEND=monolithic
-# or
-APP_BACKEND=microservices
-
-STUDENT_SERVICE_URL=http://localhost:8001
-COURSE_SERVICE_URL=http://localhost:8002
-ENROLLMENT_SERVICE_URL=http://localhost:8003
-```
+To start in monolithic mode (default), `academe/.env` already has `APP_BACKEND=monolithic`.
+To switch to microservices mode after starting all four servers, change it to `APP_BACKEND=microservices`.
 
 ### 3. Create Databases and Seed
 
