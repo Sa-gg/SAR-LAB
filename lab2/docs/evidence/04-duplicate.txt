@@ -1,0 +1,41 @@
+========================================================
+EVIDENCE 04 — Duplicate (409)
+========================================================
+Test Date: March 11, 2026
+Pre-conditions: All three services running with seeded data.
+  - student-service already has juan@example.com (id=1)
+  - enrollment-service already has student 1→course 1 (id=1)
+
+========================================================
+Student Service — port 8001
+========================================================
+
+--------------------------------------------------------
+Test: POST student with duplicate email → 409
+--------------------------------------------------------
+
+$ curl -s -X POST http://localhost:8001/api/students \
+    -H "Content-Type: application/json" \
+    -d '{"name":"Juan Copy","email":"juan@example.com"}'
+
+HTTP/1.1 409 Conflict
+Content-Type: application/json
+
+{"error":"DUPLICATE_EMAIL","message":"A student with this email already exists"}
+
+========================================================
+Enrollment Service — port 8003
+========================================================
+
+--------------------------------------------------------
+Test: POST duplicate enrollment (same student_id + course_id) → 409
+--------------------------------------------------------
+
+$ curl -s -X POST http://localhost:8003/api/enrollments \
+    -H "Content-Type: application/json" \
+    -d '{"student_id":1,"course_id":1}'
+
+HTTP/1.1 409 Conflict
+Content-Type: application/json
+
+{"error":"DUPLICATE_ENROLLMENT","message":"This student is already enrolled in this course"}

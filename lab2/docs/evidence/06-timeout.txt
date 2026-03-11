@@ -1,0 +1,48 @@
+========================================================
+EVIDENCE 06 — Dependency Timeout (504)
+========================================================
+Test Date: March 11, 2026
+Pre-conditions: All three services running.
+  A temporary sleep(10) is added to the target service's controller
+  to simulate a slow response exceeding the 5-second timeout budget.
+
+--------------------------------------------------------
+Test: POST enrollment while student-service responds slowly (> 5 seconds) → 504
+Steps:
+  1. In student-service/app/Http/Controllers/StudentController.php,
+     add sleep(10) inside show() before the find() call.
+  2. Restart student-service on :8001.
+  3. Keep course-service (:8002) and enrollment-service (:8003) running.
+  4. Run the curl command below.
+  5. Remove sleep(10) after testing and restart.
+--------------------------------------------------------
+
+$ curl -s -X POST http://localhost:8003/api/enrollments \
+    -H "Content-Type: application/json" \
+    -d '{"student_id":1,"course_id":1}'
+
+HTTP/1.1 504 Gateway Timeout
+Content-Type: application/json
+
+{"error":"GATEWAY_TIMEOUT","message":"Dependency service took too long to respond"}
+
+Verification: The enrollment-service calls Http::timeout(5)->get('http://localhost:8001/api/students/1').
+The student-service sleeps for 10 seconds, exceeding the 5-second timeout.
+The Http client throws a ConnectionException with "timed out" in the message.
+The catch block in EnrollmentController::serviceError() detects the timeout
+via str_contains($e->getMessage(), 'timed out') and returns 504.
+
+--------------------------------------------------------
+Implementation reference — EnrollmentController.php:
+--------------------------------------------------------
+
+    private function serviceError(\Illuminate\Http\Client\ConnectionException $e)
+    {
+        $isTimed = str_contains($e->getMessage(), 'timed out');
+        return response()->json([
+            'error'   => $isTimed ? 'GATEWAY_TIMEOUT' : 'SERVICE_UNAVAILABLE',
+            'message' => $isTimed
+                ? 'Dependency service took too long to respond'
+                : 'A dependency service is not responding',
+        ], $isTimed ? 504 : 503);
+    }

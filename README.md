@@ -1,232 +1,233 @@
-# Academe — Student Course Enrollment System
+# SAR Lab — Student Course System
 
-> **Subject:** System Architecture and Integration 2
-> **Section:** BIST 3B
-
-| Name | Role |
-|------|------|
-| Sagum, Patrick Ruiz |  Developer |
-| Henson, Princess Terana Caram Rasonable | Developer |
-| Gargarita, Trisha Faith Casiano | Developer |
-| Mogat, Ela Mae Trojillo | Developer |
-| Tibo-oc, Paul Felippe Gelle | Developer |
+### System Architecture and Integration 2
 
 ---
 
-## Project Description
+## Group Information
 
-Academe is a student–course enrollment system built twice:
+|                |                                              |
+|----------------|----------------------------------------------|
+| **Section**    | BIST 3B                                      |
+| **Subject**    | System Architecture and Integration 2        |
+| **Professor**  | Engr. Joao Roumil G. Vergara, CpE            |
 
-1. **Monolithic** (`academe/`) — a single Laravel 10 application using the MVCR (Model–View–Controller–Repository) pattern.
-2. **Microservices** (`microservices/`) — three independent Laravel services communicating over HTTP.
+### Members
 
-An environment variable toggle (`APP_BACKEND`) lets the monolithic app switch between its local database and the remote microservices at runtime.
+| # | Last Name   | First Name              | Middle Name |
+|---|-------------|-------------------------|-------------|
+| 1 | Sagum       | Patrick                 | Ruiz        |
+| 2 | Henson      | Princess Terana Caram   | Rasonable   |
+| 3 | Gargarita   | Trisha Faith            | Casiano     |
+| 4 | Mogat       | Ela Mae                 | Trojillo    |
+| 5 | Tibo-oc     | Paul Felippe            | Gelle       |
 
 ---
 
 ## Repository Structure
 
+| Folder | Contents |
+|--------|----------|
+| `lab1/` | Monolithic + Microservices source code, architecture docs |
+| `lab2/` | Edge case testing, curl tests, evidence, report |
+
 ```
-sar-lab1/
-├── academe/                    # Monolithic Laravel application (port 8000)
-│   ├── app/
-│   │   ├── Http/Controllers/   # StudentController, CourseController, EnrollmentController
-│   │   ├── Models/             # Student, Course, Enrollment
-│   │   ├── Repositories/       # Eloquent repositories + interfaces
-│   │   └── Services/           # HTTP service clients (microservices mode)
-│   ├── config/backend.php      # Backend mode configuration
-│   ├── routes/web.php          # Web routes with full CRUD
-│   └── resources/views/        # Blade templates
-├── microservices/
-│   ├── student-service/        # Port 8001 — Students CRUD
-│   ├── course-service/         # Port 8002 — Courses CRUD
-│   └── enrollment-service/     # Port 8003 — Enrollments + cross-service validation
-├── docs/
-│   ├── architecture.md         # Architecture diagrams and explanation
-│   ├── comparison-table.md     # Monolithic vs Microservices comparison
-│   ├── reflection.md           # Team reflection
-│   ├── report.md               # Lab 2 edge case testing report
-│   └── evidence/               # curl test output evidence (01–06)
-├── tests/
-│   └── curl-tests.md           # Complete curl test suite
-└── README.md                   # This file
+sar-lab/
+├── lab1/
+│   ├── academe/                    ← monolithic source code (port 8000)
+│   ├── microservices/
+│   │   ├── student-service/        ← port 8001
+│   │   ├── course-service/         ← port 8002
+│   │   └── enrollment-service/     ← port 8003
+│   └── docs/
+│       ├── lab1-report.docx
+│       ├── architecture.md
+│       ├── architecture.docx
+│       ├── comparison-table.md
+│       ├── comparison-table.docx
+│       ├── reflection.md
+│       └── reflection.docx
+│
+├── lab2/
+│   ├── services/
+│   │   ├── student-service/
+│   │   ├── course-service/
+│   │   └── enrollment-service/
+│   ├── tests/
+│   │   └── curl-tests.md
+│   └── docs/
+│       ├── lab2-report.docx
+│       ├── report.md
+│       └── evidence/
+│           ├── 01-happy-path.txt
+│           ├── 02-validation-error.txt
+│           ├── 03-not-found.txt
+│           ├── 04-duplicate.txt
+│           ├── 05-dependency-down.txt
+│           └── 06-timeout.txt
+│
+└── README.md
 ```
 
 ---
 
-## API Endpoints
+## Lab 1 — Monolith vs Microservices
 
-### Student Service (port 8001)
+### Option A — Run with Microservices (Default)
 
-| Method | Endpoint | Description | Success | Error Codes |
-|--------|----------|-------------|---------|-------------|
-| GET | `/api/students` | List all students | 200 | — |
-| POST | `/api/students` | Create a student | 201 | 400, 409 |
-| GET | `/api/students/{id}` | Get student by ID | 200 | 404 |
-| PUT | `/api/students/{id}` | Update student | 200 | 400, 404, 409 |
-| DELETE | `/api/students/{id}` | Delete student | 200 | 404 |
+> **This is the primary architecture required by the lab.**
 
-### Course Service (port 8002)
-
-| Method | Endpoint | Description | Success | Error Codes |
-|--------|----------|-------------|---------|-------------|
-| GET | `/api/courses` | List all courses | 200 | — |
-| POST | `/api/courses` | Create a course | 201 | 400 |
-| GET | `/api/courses/{id}` | Get course by ID | 200 | 404 |
-| PUT | `/api/courses/{id}` | Update course | 200 | 400, 404 |
-| DELETE | `/api/courses/{id}` | Delete course | 200 | 404 |
-
-### Enrollment Service (port 8003)
-
-| Method | Endpoint | Description | Success | Error Codes |
-|--------|----------|-------------|---------|-------------|
-| GET | `/api/enrollments` | List all enrollments | 200 | 503, 504 |
-| POST | `/api/enrollments` | Create enrollment | 201 | 400, 404, 409, 503, 504 |
-| GET | `/api/enrollments/{id}` | Get enrollment by ID | 200 | 404, 503, 504 |
-| DELETE | `/api/enrollments/{id}` | Delete enrollment | 200 | 404 |
-| GET | `/api/enrollments/student/{id}` | Get enrollments by student | 200 | 503, 504 |
-
----
-
-## JSON Response Format
-
-All microservice endpoints follow the same JSON structure:
-
-**Success:**
-```json
-{
-  "data": { ... },
-  "message": "success" | "created" | "updated" | "deleted"
-}
-```
-
-**Error:**
-```json
-{
-  "error": "ERROR_CODE",
-  "message": "Human-readable description"
-}
-```
-
-### Error Codes
-
-| Code | HTTP | Description |
-|------|------|-------------|
-| `VALIDATION_ERROR` | 400 | Missing or invalid request fields |
-| `NOT_FOUND` | 404 | Resource does not exist |
-| `STUDENT_NOT_FOUND` | 404 | Referenced student does not exist (cross-service) |
-| `COURSE_NOT_FOUND` | 404 | Referenced course does not exist (cross-service) |
-| `DUPLICATE_EMAIL` | 409 | Email already registered |
-| `DUPLICATE_ENROLLMENT` | 409 | Student already enrolled in course |
-| `SERVICE_UNAVAILABLE` | 503 | Dependency service is not responding |
-| `GATEWAY_TIMEOUT` | 504 | Dependency service took too long (>5s) |
-
----
-
-## How to Run
-
-### Prerequisites
-
-- PHP 8.1+
-- Composer
-- SQLite
-
-### 1. Install Dependencies
-
+**Terminal 1 — Student Service:**
 ```bash
-cd academe && composer install
-cd ../microservices/student-service && composer install
-cd ../course-service && composer install
-cd ../enrollment-service && composer install
-```
-
-### 2. Configure Environment
-
-Each service ships with a `.env.example`. Copy it to `.env` and generate an app key:
-
-```bash
-# Monolithic app
-cd academe
+cd lab1/microservices/student-service
+composer install
 cp .env.example .env
 php artisan key:generate
-
-# Student Service
-cd ../microservices/student-service
-cp .env.example .env
-php artisan key:generate
-
-# Course Service
-cd ../course-service
-cp .env.example .env
-php artisan key:generate
-
-# Enrollment Service
-cd ../enrollment-service
-cp .env.example .env
-php artisan key:generate
-```
-
-All services are pre-configured for SQLite with no extra database setup required.
-
-To start in monolithic mode (default), `academe/.env` already has `APP_BACKEND=monolithic`.
-To switch to microservices mode after starting all four servers, change it to `APP_BACKEND=microservices`.
-
-### 3. Create Databases and Seed
-
-```bash
-# For each service directory:
+touch database/students.sqlite
 php artisan migrate --seed
+php artisan serve --port=8001
 ```
 
-### 4. Start Servers
-
+**Terminal 2 — Course Service:**
 ```bash
-# Terminal 1 — Monolithic app
-cd academe
-php artisan serve --port=8000
-
-# Terminal 2 — Student Service
-cd microservices/student-service
-php artisan serve --port=8001
-
-# Terminal 3 — Course Service
-cd microservices/course-service
+cd lab1/microservices/course-service
+composer install
+cp .env.example .env
+php artisan key:generate
+touch database/courses.sqlite
+php artisan migrate --seed
 php artisan serve --port=8002
+```
 
-# Terminal 4 — Enrollment Service
-cd microservices/enrollment-service
+**Terminal 3 — Enrollment Service:**
+```bash
+cd lab1/microservices/enrollment-service
+composer install
+cp .env.example .env
+php artisan key:generate
+touch database/enrollments.sqlite
+php artisan migrate --seed
 php artisan serve --port=8003
 ```
 
-### 5. Toggle Backend Mode
-
-Edit `academe/.env` and set `APP_BACKEND`:
-
-```dotenv
-APP_BACKEND=monolithic       # Uses local SQLite database
-APP_BACKEND=microservices    # Proxies to student/course/enrollment services
+**Terminal 4 — Frontend (Monolith as Gateway):**
+```bash
+cd lab1/academe
+composer install
+npm install && npm run build
+cp .env.example .env
+php artisan key:generate
+touch database/database.sqlite
+php artisan migrate --seed
+# APP_BACKEND=microservices is already the default in .env.example
+php artisan config:clear
+php artisan serve
+# Visit http://localhost:8000
+# Topbar badge shows "⬡ Microservices"
 ```
 
-Then clear the config cache:
+### Option B — Run Monolithic Only (Optional)
+
+> **Optional:** The monolithic backend is provided for comparison purposes only.
 
 ```bash
-cd academe
+# Step 1:  Navigate to the monolithic app
+cd lab1/academe
+
+# Step 2:  Install PHP dependencies
+composer install
+
+# Step 3:  Install frontend dependencies and build assets
+npm install && npm run build
+
+# Step 4:  Create environment file from example
+cp .env.example .env
+
+# Step 5:  Generate application key
+php artisan key:generate
+
+# Step 6:  Create the SQLite database file
+touch database/database.sqlite
+
+# Step 7:  Run migrations and seed data
+php artisan migrate --seed
+
+# Step 8:  Set backend mode to monolithic in .env
+#          APP_BACKEND=monolithic
+
+# Step 9:  Clear cached config
 php artisan config:clear
+
+# Step 10: Start the development server
+php artisan serve
+
+# Step 11: Visit http://localhost:8000
+#          Topbar badge shows "⬡ Monolithic"
 ```
 
-### 6. Run Tests
+### Switching Between Backends
 
-See [tests/curl-tests.md](tests/curl-tests.md) for the full test suite.
+```bash
+# Open lab1/academe/.env
+# Change: APP_BACKEND=monolithic  OR  APP_BACKEND=microservices
+cd lab1/academe
+php artisan config:clear
+# Refresh browser — topbar badge confirms active backend
+```
 
 ---
 
-## Documentation
+## Lab 2 — Edge Case Testing
 
-| Document | Description |
-|----------|-------------|
-| [docs/architecture.md](docs/architecture.md) | Architecture diagrams and patterns |
-| [docs/comparison-table.md](docs/comparison-table.md) | Monolithic vs Microservices comparison |
-| [docs/reflection.md](docs/reflection.md) | Team reflection on the lab |
-| [docs/report.md](docs/report.md) | Edge case testing report |
-| [tests/curl-tests.md](tests/curl-tests.md) | curl test commands with expected output |
-| [docs/evidence/](docs/evidence/) | curl output evidence files (01–06) |
+### Setup
+
+**Terminal 1 — Student Service:**
+```bash
+cd lab2/services/student-service
+composer install
+cp .env.example .env
+php artisan key:generate
+touch database/students.sqlite
+php artisan migrate --seed
+php artisan serve --port=8001
+```
+
+**Terminal 2 — Course Service:**
+```bash
+cd lab2/services/course-service
+composer install
+cp .env.example .env
+php artisan key:generate
+touch database/courses.sqlite
+php artisan migrate --seed
+php artisan serve --port=8002
+```
+
+**Terminal 3 — Enrollment Service:**
+```bash
+cd lab2/services/enrollment-service
+composer install
+cp .env.example .env
+php artisan key:generate
+touch database/enrollments.sqlite
+php artisan migrate --seed
+php artisan serve --port=8003
+```
+
+### Running the Tests
+
+All curl commands are in: [`lab2/tests/curl-tests.md`](lab2/tests/curl-tests.md)
+
+Evidence files are in: [`lab2/docs/evidence/`](lab2/docs/evidence/)
+
+Report is in: [`lab2/docs/lab2-report.docx`](lab2/docs/lab2-report.docx)
+
+---
+
+## Requirements
+
+- PHP 8.2+
+- Composer
+- Node.js 18+
+- NPM
+- curl
