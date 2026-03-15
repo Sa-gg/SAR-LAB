@@ -2,12 +2,12 @@
   "name": "sar-lab-runner",
   "private": true,
   "scripts": {
-    "setup:lab1": "bash scripts/lab1/setup.sh",
-    "serve:lab1": "concurrently -k -n student,course,enrollment,academe -c cyan,green,magenta,yellow \"bash scripts/lab1/serve-microservice.sh student\" \"bash scripts/lab1/serve-microservice.sh course\" \"bash scripts/lab1/serve-microservice.sh enrollment\" \"bash scripts/lab1/serve-academe.sh\"",
-    "setup:lab2": "bash scripts/lab2/setup.sh",
-    "serve:lab2": "concurrently -k -n student,course,enrollment -c cyan,green,magenta \"bash scripts/lab2/serve.sh student\" \"bash scripts/lab2/serve.sh course\" \"bash scripts/lab2/serve.sh enrollment\"",
-    "setup:lab3": "bash scripts/lab3/setup.sh",
-    "serve:lab3": "bash scripts/lab3/serve.sh"
+    "setup:lab1": "node scripts/lab1/setup.js",
+    "serve:lab1": "concurrently -k -n student,course,enrollment,academe -c cyan,green,magenta,yellow \"cd lab1/microservices/student-service && php artisan serve --port=8001\" \"cd lab1/microservices/course-service && php artisan serve --port=8002\" \"cd lab1/microservices/enrollment-service && php artisan serve --port=8003\" \"cd lab1/academe && php artisan config:clear && php artisan serve --port=8000\"",
+    "setup:lab2": "node scripts/lab2/setup.js",
+    "serve:lab2": "concurrently -k -n student,course,enrollment -c cyan,green,magenta \"cd lab2/services/student-service && php artisan serve --port=8001\" \"cd lab2/services/course-service && php artisan serve --port=8002\" \"cd lab2/services/enrollment-service && php artisan serve --port=8003\"",
+    "setup:lab3": "node scripts/lab3/setup.js",
+    "serve:lab3": "cd lab3/server && node server.js"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

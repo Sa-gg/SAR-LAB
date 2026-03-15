@@ -33,10 +33,6 @@
 
 ---
 
-## Terminal Requirement
-
-Use **Git Bash** for all commands in this README.
-
 ## Stack
 
 | Layer | Technology |
@@ -54,53 +50,16 @@ Use **Git Bash** for all commands in this README.
 
 ## Prerequisites
 
-- Git Bash
-- PHP 8.2+
-- Composer
 - Node.js 18+
 - npm
+- PHP 8.2+
+- Composer
 - curl
+- Git Bash (only if using the bash script alternative below)
 
-## Quick Start (Recommended)
+## Quick Start (Windows · Mac · Linux)
 
 From repository root:
-
-```bash
-bash scripts/lab1/setup.sh
-```
-
-This performs a **fresh setup** (installs dependencies and resets databases using `migrate:fresh`).
-
-What `setup.sh` does:
-- installs PHP dependencies for all services and `academe/`
-- installs Node dependencies for `academe/` if needed
-- builds frontend assets if needed
-- copies `.env` files if missing
-- regenerates app keys
-- recreates SQLite databases with fresh migrations and seed data
-
-Why first run can take time:
-- Composer downloads Laravel dependencies
-- npm downloads frontend packages
-- Vite builds frontend assets
-- each database is recreated from scratch
-
-Reruns are faster because existing `vendor/`, `node_modules/`, and built assets are reused when possible.
-
-Then open 4 terminals and run:
-
-```bash
-bash scripts/lab1/serve-microservice.sh student
-bash scripts/lab1/serve-microservice.sh course
-bash scripts/lab1/serve-microservice.sh enrollment
-bash scripts/lab1/serve-academe.sh
-```
-
-Open: http://localhost:8000
-
-## One-Terminal Fallback (npm)
-
-From repository root in **Git Bash**:
 
 ```bash
 npm install
@@ -108,7 +67,44 @@ npm run setup:lab1
 npm run serve:lab1
 ```
 
-This uses `concurrently` to run all required services in one terminal.
+This works on **any terminal** (Windows Command Prompt, PowerShell, Git Bash, or Terminal on Mac/Linux).
+
+`setup:lab1` does a **fresh setup**:
+- installs PHP dependencies for all services and `academe/`
+- installs Node dependencies for `academe/` if needed
+- builds frontend assets if needed
+- copies `.env` files if missing
+- regenerates app keys
+- recreates all SQLite databases from scratch with seed data
+
+`serve:lab1` uses `concurrently` to start all 4 services in one terminal with color-coded output.
+
+Open: http://localhost:8000
+
+Why first run can take time:
+- Composer downloads Laravel dependencies
+- npm downloads frontend packages
+- Vite builds frontend assets
+- each database is recreated from scratch
+
+Reruns are faster because existing `vendor/`, `node_modules/`, and built assets are reused.
+
+## Alternative: Git Bash / Linux / Mac
+
+The bash scripts have progress indicators (`[lab1][1/4]`) if you prefer them:
+
+```bash
+bash scripts/lab1/setup.sh
+```
+
+Then open 4 terminals:
+
+```bash
+bash scripts/lab1/serve-microservice.sh student
+bash scripts/lab1/serve-microservice.sh course
+bash scripts/lab1/serve-microservice.sh enrollment
+bash scripts/lab1/serve-academe.sh
+```
 
 ---
 

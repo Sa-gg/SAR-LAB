@@ -101,39 +101,28 @@ sar-lab/
 
 ## Lab 1 — Monolith vs Microservices
 
-### Fast Setup (Recommended)
-
-```bash
-bash scripts/lab1/setup.sh
-```
-
-Fresh setup is automatic (`migrate:fresh` + seed where available).
-
-Use **Git Bash**. The script prints progress indicators such as `[lab1][1/4]` so it is clear that setup is still running.
-
-Why it can take time on first run:
-- Composer installs PHP dependencies
-- npm installs frontend dependencies
-- frontend assets are built
-- databases are recreated from scratch
-
-Run services in separate terminals:
-
-```bash
-bash scripts/lab1/serve-microservice.sh student
-bash scripts/lab1/serve-microservice.sh course
-bash scripts/lab1/serve-microservice.sh enrollment
-bash scripts/lab1/serve-academe.sh
-```
-
-Open: http://localhost:8000
-
-One-terminal fallback:
+### Fast Setup (Windows · Mac · Linux)
 
 ```bash
 npm install
 npm run setup:lab1
 npm run serve:lab1
+```
+
+`setup:lab1` installs dependencies and resets all databases (`migrate:fresh`). `serve:lab1` starts all 4 services with color-coded output.
+
+Open: http://localhost:8000
+
+First run can take a few minutes (Composer, npm, and Vite all run). Reruns are fast because installed dependencies are reused.
+
+**Alternative (Git Bash / Linux / Mac):**
+
+```bash
+bash scripts/lab1/setup.sh          # installs + migrates with progress indicators
+bash scripts/lab1/serve-microservice.sh student
+bash scripts/lab1/serve-microservice.sh course
+bash scripts/lab1/serve-microservice.sh enrollment
+bash scripts/lab1/serve-academe.sh
 ```
 
 Detailed/manual steps: [`lab1/README.md`](lab1/README.md)
@@ -142,34 +131,25 @@ Detailed/manual steps: [`lab1/README.md`](lab1/README.md)
 
 ## Lab 2 — Edge Case Testing
 
-### Fast Setup (Recommended)
-
-```bash
-bash scripts/lab2/setup.sh
-```
-
-Fresh setup is automatic (`migrate:fresh` + seed where available).
-
-Use **Git Bash**. The script prints progress indicators such as `[lab2][1/3]` so it is clear that setup is still running.
-
-Why it can take time on first run:
-- Composer runs for each service
-- all service databases are recreated from scratch
-
-Run services in separate terminals:
-
-```bash
-bash scripts/lab2/serve.sh student
-bash scripts/lab2/serve.sh course
-bash scripts/lab2/serve.sh enrollment
-```
-
-One-terminal fallback:
+### Fast Setup (Windows · Mac · Linux)
 
 ```bash
 npm install
 npm run setup:lab2
 npm run serve:lab2
+```
+
+`setup:lab2` installs PHP dependencies and resets all 3 service databases. `serve:lab2` starts all 3 services in one terminal.
+
+First run can take a few minutes (Composer runs for each service). Reruns are fast.
+
+**Alternative (Git Bash / Linux / Mac):**
+
+```bash
+bash scripts/lab2/setup.sh          # installs + migrates with progress indicators
+bash scripts/lab2/serve.sh student
+bash scripts/lab2/serve.sh course
+bash scripts/lab2/serve.sh enrollment
 ```
 
 Detailed/manual steps: [`lab2/README.md`](lab2/README.md)
@@ -193,23 +173,21 @@ Lab 3 is complete and organized with:
 
 Primary report: [`lab3/docs/lab3-report.pdf`](lab3/docs/lab3-report.pdf)
 
-### Fast Setup (Recommended)
-
-```bash
-bash scripts/lab3/setup.sh
-bash scripts/lab3/serve.sh
-```
-
-`setup.sh` restores `products.json` from seed for consistent testing.
-
-Use **Git Bash**. The script prints progress messages so it is clear when install/reset is running.
-
-One-terminal fallback:
+### Fast Setup (Windows · Mac · Linux)
 
 ```bash
 npm install
 npm run setup:lab3
 npm run serve:lab3
+```
+
+`setup:lab3` installs Node dependencies and resets `products.json` from the seed baseline. `serve:lab3` starts the API on port 3000.
+
+**Alternative (Git Bash / Linux / Mac):**
+
+```bash
+bash scripts/lab3/setup.sh
+bash scripts/lab3/serve.sh
 ```
 
 Detailed/manual steps: [`lab3/README.md`](lab3/README.md).
@@ -218,10 +196,10 @@ Detailed/manual steps: [`lab3/README.md`](lab3/README.md).
 
 ## Requirements
 
+- Node.js 18+
+- npm
 - PHP 8.2+
 - Composer
-- Node.js 18+
-- NPM
 - curl
 
 ---

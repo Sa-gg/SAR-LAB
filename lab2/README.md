@@ -31,10 +31,6 @@
 | course-service | 8002 | database/courses.sqlite |
 | enrollment-service | 8003 | database/enrollments.sqlite |
 
-## Terminal Requirement
-
-Use **Git Bash** for all commands in this README.
-
 ## Stack
 
 | Layer | Technology |
@@ -51,47 +47,16 @@ Use **Git Bash** for all commands in this README.
 
 ## Prerequisites
 
-- Git Bash
+- Node.js 18+
+- npm
 - PHP 8.2+
 - Composer
 - curl
+- Git Bash (only if using the bash script alternative below)
 
-## Quick Start (Recommended)
+## Quick Start (Windows · Mac · Linux)
 
 From repository root:
-
-```bash
-bash scripts/lab2/setup.sh
-```
-
-This performs a **fresh setup** (installs dependencies and resets databases using `migrate:fresh`).
-
-What `setup.sh` does:
-- installs PHP dependencies for all 3 services
-- copies `.env` files if missing
-- regenerates app keys
-- recreates all SQLite databases from scratch
-- reseeds student and course services
-
-Why first run can take time:
-- Composer must prepare Laravel dependencies for each service
-- all three databases are recreated from scratch
-
-Reruns are faster because `vendor/` folders are reused.
-
-Then open 3 terminals and run:
-
-```bash
-bash scripts/lab2/serve.sh student
-bash scripts/lab2/serve.sh course
-bash scripts/lab2/serve.sh enrollment
-```
-
-All services are then ready for the curl commands in `lab2/tests/curl-tests.md`.
-
-## One-Terminal Fallback (npm)
-
-From repository root in **Git Bash**:
 
 ```bash
 npm install
@@ -99,7 +64,40 @@ npm run setup:lab2
 npm run serve:lab2
 ```
 
-This uses `concurrently` to run all 3 services in one terminal.
+This works on **any terminal** (Windows Command Prompt, PowerShell, Git Bash, or Terminal on Mac/Linux).
+
+`setup:lab2` does a **fresh setup**:
+- installs PHP dependencies for all 3 services
+- copies `.env` files if missing
+- regenerates app keys
+- recreates all SQLite databases from scratch
+- reseeds student and course services
+
+`serve:lab2` uses `concurrently` to start all 3 services in one terminal with color-coded output.
+
+All services are then ready for the curl commands in `lab2/tests/curl-tests.md`.
+
+Why first run can take time:
+- Composer must prepare Laravel dependencies for each service
+- all three databases are recreated from scratch
+
+Reruns are faster because `vendor/` folders are reused.
+
+## Alternative: Git Bash / Linux / Mac
+
+The bash scripts have progress indicators (`[lab2][1/3]`) if you prefer them:
+
+```bash
+bash scripts/lab2/setup.sh
+```
+
+Then open 3 terminals:
+
+```bash
+bash scripts/lab2/serve.sh student
+bash scripts/lab2/serve.sh course
+bash scripts/lab2/serve.sh enrollment
+```
 
 ## Setup & Run
 

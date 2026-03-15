@@ -19,10 +19,6 @@
 | Business Logic | server/controllers/orderController.js | Validates rules, processes orders |
 | Data | server/data/products.json | Stores products and stock |
 
-## Terminal Requirement
-
-Use **Git Bash** for all commands in this README.
-
 ## Stack
 
 | Layer | Technology |
@@ -38,35 +34,14 @@ Use **Git Bash** for all commands in this README.
 
 ## Prerequisites
 
-- Git Bash
 - Node.js 18+
 - npm
 - curl
+- Git Bash (only if using the bash script alternative below)
 
-## Setup
+## Setup (Windows · Mac · Linux)
 
-Quick start from repository root:
-
-```bash
-bash scripts/lab3/setup.sh
-bash scripts/lab3/serve.sh
-```
-
-`setup.sh` resets `server/data/products.json` from `server/data/products.seed.json` for a clean test baseline every run.
-
-What `setup.sh` does:
-- installs Node dependencies if needed
-- copies `.env` if missing
-- resets `products.json` to the seeded baseline
-
-Why first run can take time:
-- npm must download packages on the first run
-
-Reruns are faster because `node_modules/` is reused.
-
-## One-Terminal Fallback (npm)
-
-From repository root in **Git Bash**:
+From repository root:
 
 ```bash
 npm install
@@ -74,10 +49,31 @@ npm run setup:lab3
 npm run serve:lab3
 ```
 
-Manual setup (equivalent):
+This works on **any terminal** (Windows Command Prompt, PowerShell, Git Bash, or Terminal on Mac/Linux).
+
+`setup:lab3` does:
+- installs Node dependencies if needed
+- copies `.env` if missing
+- resets `server/data/products.json` to the seeded baseline (5 products, original stock)
+
+`serve:lab3` starts the API on port 3000.
+
+Why first run can take time:
+- npm must download packages on the first run
+
+Reruns are faster because `node_modules/` is reused.
+
+## Alternative: Git Bash / Linux / Mac
 
 ```bash
-cd server
+bash scripts/lab3/setup.sh
+bash scripts/lab3/serve.sh
+```
+
+Manual equivalent:
+
+```bash
+cd lab3/server
 npm install
 cp .env.example .env
 node server.js
