@@ -252,7 +252,7 @@ Report is in: [`lab2/docs/lab2-report.pdf`](lab2/docs/lab2-report.pdf)
 
 ---
 
-## Lab 3 — (To Be Assigned)
+## Lab 3 — Business Logic API
 
 Lab 3 is complete and organized with:
 - API source in [`lab3/server/`](lab3/server/)
