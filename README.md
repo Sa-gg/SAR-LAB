@@ -34,21 +34,25 @@
 
 ## Branch Navigation (Recommended)
 
-Each lab also has its own dedicated Git branch containing only that lab and its scripts.
+Each lab has its own dedicated Git branch containing **only that lab's content** at the **root level** (flattened structure for cleaner navigation).
 
 ```bash
-git checkout lab1
-git checkout lab2
-git checkout lab3
+git checkout lab1    # See Lab 1 content at root: academe/, microservices/, docs/, scripts/
+git checkout lab2    # See Lab 2 content at root: services/, tests/, docs/, scripts/
+git checkout lab3    # See Lab 3 content at root: server/, tests/, docs/, scripts/
+git checkout main    # See all labs nested: lab1/, lab2/, lab3/
 ```
 
-Branch content mapping:
+**Branch content structure:**
 
-- `lab1` branch: `lab1/` + `scripts/lab1/`
-- `lab2` branch: `lab2/` + `scripts/lab2/`
-- `lab3` branch: `lab3/` + `scripts/lab3/`
+| Branch | Root contents | Use case |
+|--------|--------------|----------|
+| `lab1` | `academe/`, `microservices/`, `docs/`, `scripts/`, `README.md` | Work on Lab 1 only |
+| `lab2` | `services/`, `tests/`, `docs/`, `scripts/`, `README.md` | Work on Lab 2 only |
+| `lab3` | `server/`, `tests/`, `docs/`, `scripts/`, `README.md` | Work on Lab 3 only |
+| `main` | `lab1/`, `lab2/`, `lab3/`, `scripts/`, `README.md` | Complete repository view |
 
-Use `main` for the complete repository view with all labs together.
+Use `main` to navigate between all labs. Use individual branches for isolated work on each lab.
 
 ---
 
