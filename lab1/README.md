@@ -57,19 +57,15 @@
 - curl
 - Git Bash (only if using the bash script alternative below)
 
-## Quick Start (Windows · Mac · Linux)
+## Quick Start (Branch: `lab1`)
 
-From repository root:
+From repository root, run:
 
 ```bash
-npm install
-npm run setup:lab1
-npm run serve:lab1
+bash scripts/lab1/setup.sh
 ```
 
-This works on **any terminal** (Windows Command Prompt, PowerShell, Git Bash, or Terminal on Mac/Linux).
-
-`setup:lab1` does a **fresh setup**:
+`scripts/lab1/setup.sh` does a **fresh setup**:
 - installs PHP dependencies for all services and `academe/`
 - installs Node dependencies for `academe/` if needed
 - builds frontend assets if needed
@@ -77,7 +73,14 @@ This works on **any terminal** (Windows Command Prompt, PowerShell, Git Bash, or
 - regenerates app keys
 - recreates all SQLite databases from scratch with seed data
 
-`serve:lab1` uses `concurrently` to start all 4 services in one terminal with color-coded output.
+Then open 4 terminals and run:
+
+```bash
+bash scripts/lab1/serve-microservice.sh student
+bash scripts/lab1/serve-microservice.sh course
+bash scripts/lab1/serve-microservice.sh enrollment
+bash scripts/lab1/serve-academe.sh
+```
 
 Open: http://localhost:8000
 
@@ -89,22 +92,9 @@ Why first run can take time:
 
 Reruns are faster because existing `vendor/`, `node_modules/`, and built assets are reused.
 
-## Alternative: Git Bash / Linux / Mac
+## Terminal Note (Windows)
 
-The bash scripts have progress indicators (`[lab1][1/4]`) if you prefer them:
-
-```bash
-bash scripts/lab1/setup.sh
-```
-
-Then open 4 terminals:
-
-```bash
-bash scripts/lab1/serve-microservice.sh student
-bash scripts/lab1/serve-microservice.sh course
-bash scripts/lab1/serve-microservice.sh enrollment
-bash scripts/lab1/serve-academe.sh
-```
+For scripted setup/start, use Git Bash (or WSL). If using Command Prompt/PowerShell only, use the manual commands in Option A/Option B below.
 
 ---
 
