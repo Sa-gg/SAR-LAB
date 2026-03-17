@@ -3,11 +3,10 @@
 ### BIST 3B
 
 > The three microservices tested in this lab are the same
-> services built in Lab 1. Source code lives in:
-> lab1/microservices/
+> services built in Lab 1. Source code lives in the lab1 branch.
 >
-> lab2/services/ is a standalone copy for isolated testing.
-> Use lab2/services/ for all Lab 2 testing.
+> services/ is a standalone copy for isolated testing.
+> Use services/ for all Lab 2 testing.
 
 ## Members
 
@@ -22,6 +21,7 @@
 ## GitHub
 
 > **Repository (Lab 2):** [lab2/](./)
+> **Repository (Lab 2):** [./](./)
 
 ## Services
 
@@ -57,10 +57,10 @@
 From repository root:
 
 ```bash
-bash scripts/lab2/setup.sh
+bash scripts/setup.sh
 ```
 
-`scripts/lab2/setup.sh` does a **fresh setup**:
+`scripts/setup.sh` does a **fresh setup**:
 - installs PHP dependencies for all 3 services
 - copies `.env` files if missing
 - regenerates app keys
@@ -70,12 +70,12 @@ bash scripts/lab2/setup.sh
 Then open 3 terminals:
 
 ```bash
-bash scripts/lab2/serve.sh student
-bash scripts/lab2/serve.sh course
-bash scripts/lab2/serve.sh enrollment
+bash scripts/serve.sh student
+bash scripts/serve.sh course
+bash scripts/serve.sh enrollment
 ```
 
-All services are then ready for the curl commands in `lab2/tests/curl-tests.md`.
+All services are then ready for the curl commands in `tests/curl-tests.md`.
 
 Why first run can take time:
 - Composer must prepare Laravel dependencies for each service
@@ -93,7 +93,7 @@ For scripted setup/start, use Git Bash (or WSL). If using Command Prompt/PowerSh
 
 Terminal 1:
 ```bash
-cd lab2/services/student-service
+cd services/student-service
 composer install
 touch database/students.sqlite
 php artisan migrate:fresh --seed
@@ -102,7 +102,7 @@ php artisan serve --port=8001
 
 Terminal 2:
 ```bash
-cd lab2/services/course-service
+cd services/course-service
 composer install
 touch database/courses.sqlite
 php artisan migrate:fresh --seed
@@ -111,7 +111,7 @@ php artisan serve --port=8002
 
 Terminal 3:
 ```bash
-cd lab2/services/enrollment-service
+cd services/enrollment-service
 composer install
 touch database/enrollments.sqlite
 php artisan migrate:fresh
@@ -125,24 +125,27 @@ All three must be running before executing tests.
 With all 3 services running, open a new terminal and follow the curl commands in:
 
 [`lab2/tests/curl-tests.md`](tests/curl-tests.md)
+[`tests/curl-tests.md`](tests/curl-tests.md)
 
-Evidence output is pre-saved in: `lab2/docs/evidence/`
+Evidence output is pre-saved in: `docs/evidence/`
 
 ## Deliverables
 
 | Item | Location |
 |------|----------|
 | Source code | lab2/services/ |
-| curl test commands | lab2/tests/curl-tests.md |
-| Edge case report | lab2/docs/report.md |
-| Formal report (PDF) | lab2/docs/lab2-report.pdf |
-| Source report (DOCX) | lab2/docs/lab2-report.docx |
-| Evidence files | lab2/docs/evidence/ |
+| Source code | services/ |
+| curl test commands | tests/curl-tests.md |
+| Edge case report | docs/report.md |
+| Formal report (PDF) | docs/lab2-report.pdf |
+| Source report (DOCX) | docs/lab2-report.docx |
+| Evidence files | docs/evidence/ |
 
 ## Requirements
 
 See **Prerequisites** above.
 
 > Note: The academe frontend (lab1/academe/) is NOT
+> Note: The academe frontend is NOT
 > required for Lab 2. The three services run and are
 > tested independently via curl.

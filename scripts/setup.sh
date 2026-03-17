@@ -2,6 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 TOTAL_STEPS=3
 CURRENT_STEP=0
@@ -46,11 +47,13 @@ setup_service() {
 }
 
 setup_service "lab2/services/student-service" "database/students.sqlite" "php artisan migrate:fresh --seed --force"
-setup_service "lab2/services/course-service" "database/courses.sqlite" "php artisan migrate:fresh --seed --force"
-setup_service "lab2/services/enrollment-service" "database/enrollments.sqlite" "php artisan migrate:fresh --force"
+setup_service "services/student-service" "database/students.sqlite" "php artisan migrate:fresh --seed --force"
+setup_service "services/course-service" "database/courses.sqlite" "php artisan migrate:fresh --seed --force"
+setup_service "services/enrollment-service" "database/enrollments.sqlite" "php artisan migrate:fresh --force"
 
 step "Setup complete"
 note "Start services with:"
 note "  bash scripts/lab2/serve.sh student"
-note "  bash scripts/lab2/serve.sh course"
-note "  bash scripts/lab2/serve.sh enrollment"
+note "  bash scripts/serve.sh student"
+note "  bash scripts/serve.sh course"
+note "  bash scripts/serve.sh enrollment"
