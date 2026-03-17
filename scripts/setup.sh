@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 TOTAL_STEPS=4
 CURRENT_STEP=0
@@ -45,12 +45,12 @@ setup_service() {
   eval "${migrate_cmd}"
 }
 
-setup_service "lab1/microservices/student-service" "database/students.sqlite" "php artisan migrate:fresh --seed --force"
-setup_service "lab1/microservices/course-service" "database/courses.sqlite" "php artisan migrate:fresh --seed --force"
-setup_service "lab1/microservices/enrollment-service" "database/enrollments.sqlite" "php artisan migrate:fresh --force"
+setup_service "microservices/student-service" "database/students.sqlite" "php artisan migrate:fresh --seed --force"
+setup_service "microservices/course-service" "database/courses.sqlite" "php artisan migrate:fresh --seed --force"
+setup_service "microservices/enrollment-service" "database/enrollments.sqlite" "php artisan migrate:fresh --force"
 
 step "Preparing academe frontend"
-cd "${ROOT}/lab1/academe"
+cd "${ROOT}/academe"
 if [[ -d vendor ]]; then
   note "PHP dependencies already installed, skipping composer install."
 else
@@ -79,7 +79,7 @@ php artisan config:clear
 
 step "Setup complete"
 note "Start services with:"
-note "  bash scripts/lab1/serve-microservice.sh student"
-note "  bash scripts/lab1/serve-microservice.sh course"
-note "  bash scripts/lab1/serve-microservice.sh enrollment"
-note "  bash scripts/lab1/serve-academe.sh"
+note "  bash scripts/serve-microservice.sh student"
+note "  bash scripts/serve-microservice.sh course"
+note "  bash scripts/serve-microservice.sh enrollment"
+note "  bash scripts/serve-academe.sh"
