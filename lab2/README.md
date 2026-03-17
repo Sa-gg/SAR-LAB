@@ -47,33 +47,33 @@
 
 ## Prerequisites
 
-- Node.js 18+
-- npm
 - PHP 8.2+
 - Composer
 - curl
 - Git Bash (only if using the bash script alternative below)
 
-## Quick Start (Windows · Mac · Linux)
+## Quick Start (Branch: `lab2`)
 
 From repository root:
 
 ```bash
-npm install
-npm run setup:lab2
-npm run serve:lab2
+bash scripts/lab2/setup.sh
 ```
 
-This works on **any terminal** (Windows Command Prompt, PowerShell, Git Bash, or Terminal on Mac/Linux).
-
-`setup:lab2` does a **fresh setup**:
+`scripts/lab2/setup.sh` does a **fresh setup**:
 - installs PHP dependencies for all 3 services
 - copies `.env` files if missing
 - regenerates app keys
 - recreates all SQLite databases from scratch
 - reseeds student and course services
 
-`serve:lab2` uses `concurrently` to start all 3 services in one terminal with color-coded output.
+Then open 3 terminals:
+
+```bash
+bash scripts/lab2/serve.sh student
+bash scripts/lab2/serve.sh course
+bash scripts/lab2/serve.sh enrollment
+```
 
 All services are then ready for the curl commands in `lab2/tests/curl-tests.md`.
 
@@ -83,21 +83,9 @@ Why first run can take time:
 
 Reruns are faster because `vendor/` folders are reused.
 
-## Alternative: Git Bash / Linux / Mac
+## Terminal Note (Windows)
 
-The bash scripts have progress indicators (`[lab2][1/3]`) if you prefer them:
-
-```bash
-bash scripts/lab2/setup.sh
-```
-
-Then open 3 terminals:
-
-```bash
-bash scripts/lab2/serve.sh student
-bash scripts/lab2/serve.sh course
-bash scripts/lab2/serve.sh enrollment
-```
+For scripted setup/start, use Git Bash (or WSL). If using Command Prompt/PowerShell only, use the manual commands in the next section.
 
 ## Manual Setup (Full Reference)
 
