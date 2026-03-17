@@ -32,6 +32,24 @@
 | Lab 2 | [lab2/](lab2/) |
 | Lab 3 | [lab3/](lab3/) |
 
+## Branch Navigation (Recommended)
+
+Each lab also has its own dedicated Git branch containing only that lab and its scripts.
+
+```bash
+git checkout lab1
+git checkout lab2
+git checkout lab3
+```
+
+Branch content mapping:
+
+- `lab1` branch: `lab1/` + `scripts/lab1/`
+- `lab2` branch: `lab2/` + `scripts/lab2/`
+- `lab3` branch: `lab3/` + `scripts/lab3/`
+
+Use `main` for the complete repository view with all labs together.
+
 ---
 
 ## Repository Structure
