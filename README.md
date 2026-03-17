@@ -44,16 +44,16 @@
 From repository root:
 
 ```bash
-bash scripts/lab3/setup.sh
-bash scripts/lab3/serve.sh
+bash scripts/setup.sh
+bash scripts/serve.sh
 ```
 
-`scripts/lab3/setup.sh` does:
+`scripts/setup.sh` does:
 - installs Node dependencies if needed
 - copies `.env` if missing
 - resets `server/data/products.json` to the seeded baseline (5 products, original stock)
 
-`scripts/lab3/serve.sh` starts the API on port 3000.
+`scripts/serve.sh` starts the API on port 3000.
 
 Why first run can take time:
 - npm must download packages on the first run
@@ -67,7 +67,7 @@ For scripted setup/start, use Git Bash (or WSL). If using Command Prompt/PowerSh
 Manual equivalent:
 
 ```bash
-cd lab3/server
+cd server
 npm install
 cp .env.example .env
 node server.js
@@ -103,10 +103,10 @@ Start the API from `server/`, then run all 13 curl commands from `tests/curl-tes
 
 | Item | Location |
 |------|----------|
-| API source code | `lab3/server/` |
-| curl test suite | `lab3/tests/curl-tests.md` |
-| Lab 3 report (PDF) | `lab3/docs/lab3-report.pdf` |
-| Lab 3 source report (DOCX) | `lab3/docs/lab3-report.docx` |
+| API source code | `server/` |
+| curl test suite | `tests/curl-tests.md` |
+| Lab 3 report (PDF) | `docs/lab3-report.pdf` |
+| Lab 3 source report (DOCX) | `docs/lab3-report.docx` |
 
 ## Requirements
 

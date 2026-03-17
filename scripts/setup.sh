@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 step() {
 	echo
@@ -9,7 +9,7 @@ step() {
 }
 
 step "Preparing Lab 3 server"
-cd "${ROOT}/lab3/server"
+cd "${ROOT}/server"
 if [[ -d node_modules ]]; then
 	echo "[lab3] Node dependencies already installed, skipping npm install."
 else
@@ -21,4 +21,4 @@ step "Resetting products.json from seed baseline"
 cp data/products.seed.json data/products.json
 
 step "Setup complete"
-echo "[lab3] Start API with: bash scripts/lab3/serve.sh"
+echo "[lab3] Start API with: bash scripts/serve.sh"
