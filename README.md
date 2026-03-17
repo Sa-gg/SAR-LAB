@@ -1,231 +1,254 @@
-# SAR Lab — Student Course System
+# Lab 1 — Monolith vs Microservices
+### ITSAR2 313 – System Architecture and Integration 2
+### BIST 3B
 
-### System Architecture and Integration 2
+> This lab implements a Student Course System in two architectures:
+> a **monolithic** app (Academe) and a **microservices** decomposition,
+> both accessible through the same Laravel frontend via a config switch.
 
----
+## Members
 
-## Group Information
+| # | Name |
+|---|------|
+| 1 | Sagum, Patrick Ruiz |
+| 2 | Henson, Princess Terana Caram Rasonable |
+| 3 | Gargarita, Trisha Faith Casiano |
+| 4 | Mogat, Ela Mae Trojillo |
+| 5 | Tibo-oc, Paul Felippe Gelle |
 
-|                |                                              |
-|----------------|----------------------------------------------|
-| **Section**    | BIST 3B                                      |
-| **Subject**    | System Architecture and Integration 2        |
-| **Professor**  | Engr. Joao Roumil G. Vergara, CpE            |
+## GitHub
 
-### Members
-
-| # | Last Name   | First Name              | Middle Name |
-|---|-------------|-------------------------|-------------|
-| 1 | Sagum       | Patrick                 | Ruiz        |
-| 2 | Henson      | Princess Terana Caram   | Rasonable   |
-| 3 | Gargarita   | Trisha Faith            | Casiano     |
-| 4 | Mogat       | Ela Mae                 | Trojillo    |
-| 5 | Tibo-oc     | Paul Felippe            | Gelle       |
+> **Repository (Lab 1 Branch):** [./](./)
 
 ---
 
-## GitHub Repositories
+## Applications
 
-| Lab | Link |
-|-----|------|
-| Lab 1 | [lab1/](lab1/) |
-| Lab 2 | [lab2/](lab2/) |
-| Lab 3 | [lab3/](lab3/) |
-
-## Branch Navigation (Recommended)
-
-Each lab also has its own dedicated Git branch containing only that lab and its scripts.
-
-```bash
-git checkout lab1
-git checkout lab2
-git checkout lab3
-```
-
-Branch content mapping:
-
-- `lab1` branch: `lab1/` + `scripts/lab1/`
-- `lab2` branch: `lab2/` + `scripts/lab2/`
-- `lab3` branch: `lab3/` + `scripts/lab3/`
-
-Use `main` for the complete repository view with all labs together.
+| App | Description | Port |
+|-----|-------------|------|
+| `academe/` | Laravel frontend + monolithic backend | 8000 |
+| `microservices/student-service/` | Student REST API | 8001 |
+| `microservices/course-service/` | Course REST API | 8002 |
+| `microservices/enrollment-service/` | Enrollment REST API | 8003 |
 
 ---
 
-## Repository Structure
+## Stack
 
-| Folder | Contents |
-|--------|----------|
-| `lab1/` | Monolithic + Microservices source code, architecture docs |
-| `lab2/` | Edge case testing, curl tests, evidence, report |
-| `lab3/` | Business Logic API (docs + server + tests) |
+| Layer | Technology |
+|------|------------|
+| Frontend | Laravel Blade + Vite |
+| Backend | Laravel / PHP |
+| Database | SQLite |
+| API mode | Monolith + Microservices |
 
-```
-sar-lab/
-├── lab1/
-│   ├── README.md                       ← Lab 1 setup & docs
-│   ├── academe/                        ← monolithic source code (port 8000)
-│   ├── microservices/
-│   │   ├── student-service/            ← port 8001
-│   │   ├── course-service/             ← port 8002
-│   │   └── enrollment-service/         ← port 8003
-│   └── docs/
-│       ├── lab1-report.docx
-│       ├── architecture.md
-│       ├── architecture.docx
-│       ├── comparison-table.md
-│       ├── comparison-table.docx
-│       ├── reflection.md
-│       └── reflection.docx
-│
-├── lab2/
-│   ├── README.md                       ← Lab 2 setup & docs
-│   ├── services/
-│   │   ├── student-service/
-│   │   ├── course-service/
-│   │   └── enrollment-service/
-│   ├── tests/
-│   │   └── curl-tests.md
-│   └── docs/
-│       ├── lab2-report.docx
-│       ├── report.md
-│       └── evidence/
-│           ├── 01-happy-path.txt
-│           ├── 02-validation-error.txt
-│           ├── 03-not-found.txt
-│           ├── 04-duplicate.txt
-│           ├── 05-dependency-down.txt
-│           └── 06-timeout.txt
-│
-├── lab3/
-│   ├── README.md                       ← Lab 3 setup & docs
-│   ├── docs/
-│   │   ├── lab3-report.docx
-│   │   └── lab3-report.pdf
-│   ├── server/
-│   │   ├── server.js
-│   │   ├── controllers/
-│   │   ├── middleware/
-│   │   ├── routes/
-│   │   ├── data/
-│   │   └── package.json
-│   └── tests/
-│       └── curl-tests.md
-│
-└── README.md
-```
+## Seeded Data
 
----
+- Students: 3 seeded records
+- Courses: 3 seeded records
+- Enrollments: seeded in Academe, empty/fresh in standalone enrollment service unless created by tests
 
-## Lab 1 — Monolith vs Microservices
-
-### Fast Setup (Windows · Mac · Linux)
-
-```bash
-npm install
-npm run setup:lab1
-npm run serve:lab1
-```
-
-`setup:lab1` installs dependencies and resets all databases (`migrate:fresh`). `serve:lab1` starts all 4 services with color-coded output.
-
-Open: http://localhost:8000
-
-First run can take a few minutes (Composer, npm, and Vite all run). Reruns are fast because installed dependencies are reused.
-
-**Alternative (Git Bash / Linux / Mac):**
-
-```bash
-bash scripts/lab1/setup.sh          # installs + migrates with progress indicators
-bash scripts/lab1/serve-microservice.sh student
-bash scripts/lab1/serve-microservice.sh course
-bash scripts/lab1/serve-microservice.sh enrollment
-bash scripts/lab1/serve-academe.sh
-```
-
-Detailed/manual steps: [`lab1/README.md`](lab1/README.md)
-
----
-
-## Lab 2 — Edge Case Testing
-
-### Fast Setup (Windows · Mac · Linux)
-
-```bash
-npm install
-npm run setup:lab2
-npm run serve:lab2
-```
-
-`setup:lab2` installs PHP dependencies and resets all 3 service databases. `serve:lab2` starts all 3 services in one terminal.
-
-First run can take a few minutes (Composer runs for each service). Reruns are fast.
-
-**Alternative (Git Bash / Linux / Mac):**
-
-```bash
-bash scripts/lab2/setup.sh          # installs + migrates with progress indicators
-bash scripts/lab2/serve.sh student
-bash scripts/lab2/serve.sh course
-bash scripts/lab2/serve.sh enrollment
-```
-
-Detailed/manual steps: [`lab2/README.md`](lab2/README.md)
-
-### Running the Tests
-
-All curl commands are in: [`lab2/tests/curl-tests.md`](lab2/tests/curl-tests.md)
-
-Evidence files are in: [`lab2/docs/evidence/`](lab2/docs/evidence/)
-
-Report is in: [`lab2/docs/lab2-report.pdf`](lab2/docs/lab2-report.pdf)
-
----
-
-## Lab 3 — Business Logic API
-
-Lab 3 is complete and organized with:
-- API source in [`lab3/server/`](lab3/server/)
-- test commands in [`lab3/tests/curl-tests.md`](lab3/tests/curl-tests.md)
-- report files in [`lab3/docs/`](lab3/docs/)
-
-Primary report: [`lab3/docs/lab3-report.pdf`](lab3/docs/lab3-report.pdf)
-
-### Fast Setup (Windows · Mac · Linux)
-
-```bash
-npm install
-npm run setup:lab3
-npm run serve:lab3
-```
-
-`setup:lab3` installs Node dependencies and resets `products.json` from the seed baseline. `serve:lab3` starts the API on port 3000.
-
-**Alternative (Git Bash / Linux / Mac):**
-
-```bash
-bash scripts/lab3/setup.sh
-bash scripts/lab3/serve.sh
-```
-
-Detailed/manual steps: [`lab3/README.md`](lab3/README.md).
-
----
-
-## Requirements
+## Prerequisites
 
 - Node.js 18+
 - npm
 - PHP 8.2+
 - Composer
 - curl
+- Git Bash (only if using the bash script alternative below)
+
+## Quick Start (Branch: `lab1`)
+
+From repository root, run:
+
+```bash
+bash scripts/setup.sh
+```
+
+`scripts/setup.sh` does a **fresh setup**:
+- installs PHP dependencies for all services and `academe/`
+- installs Node dependencies for `academe/` if needed
+- builds frontend assets if needed
+- copies `.env` files if missing
+- regenerates app keys
+- recreates all SQLite databases from scratch with seed data
+
+Then open 4 terminals and run:
+
+```bash
+bash scripts/serve-microservice.sh student
+bash scripts/serve-microservice.sh course
+bash scripts/serve-microservice.sh enrollment
+bash scripts/serve-academe.sh
+```
+
+Open: http://localhost:8000
+
+Why first run can take time:
+- Composer downloads Laravel dependencies
+- npm downloads frontend packages
+- Vite builds frontend assets
+- each database is recreated from scratch
+
+Reruns are faster because existing `vendor/`, `node_modules/`, and built assets are reused.
+
+## Terminal Note (Windows)
+
+For scripted setup/start, use Git Bash (or WSL). If using Command Prompt/PowerShell only, use the manual commands in Option A/Option B below.
 
 ---
 
-## Report Files (Per Lab)
+## Option A — Run with Microservices (Primary)
 
-| Lab | Report (PDF) |
-|-----|--------------|
-| Lab 1 | [`lab1/docs/lab1-report.pdf`](lab1/docs/lab1-report.pdf) |
-| Lab 2 | [`lab2/docs/lab2-report.pdf`](lab2/docs/lab2-report.pdf) |
-| Lab 3 | [`lab3/docs/lab3-report.pdf`](lab3/docs/lab3-report.pdf) |
+> For quick professor testing, use **Quick Start** above.
+
+> **This is the primary architecture required by the lab.**
+
+**Terminal 1 — Student Service:**
+```bash
+cd microservices/student-service
+composer install
+cp .env.example .env
+php artisan key:generate
+touch database/students.sqlite
+php artisan migrate --seed
+php artisan serve --port=8001
+```
+
+**Terminal 2 — Course Service:**
+```bash
+cd microservices/course-service
+composer install
+cp .env.example .env
+php artisan key:generate
+touch database/courses.sqlite
+php artisan migrate --seed
+php artisan serve --port=8002
+```
+
+**Terminal 3 — Enrollment Service:**
+```bash
+cd microservices/enrollment-service
+composer install
+cp .env.example .env
+php artisan key:generate
+touch database/enrollments.sqlite
+php artisan migrate
+php artisan serve --port=8003
+```
+
+**Terminal 4 — Frontend (Academe):**
+```bash
+cd academe
+composer install
+npm install && npm run build
+cp .env.example .env
+php artisan key:generate
+touch database/database.sqlite
+php artisan migrate --seed
+# APP_BACKEND=microservices is already the default in .env.example
+php artisan config:clear
+php artisan serve
+# Visit http://localhost:8000
+# Topbar badge shows "⬡ Microservices"
+```
+
+---
+
+## Option B — Run Monolithic Only (Optional)
+
+> Provided for architectural comparison only.
+
+```bash
+cd academe
+composer install
+npm install && npm run build
+cp .env.example .env
+php artisan key:generate
+touch database/database.sqlite
+php artisan migrate --seed
+# In .env: set APP_BACKEND=monolithic
+php artisan config:clear
+php artisan serve
+# Visit http://localhost:8000
+# Topbar badge shows "⬡ Monolithic"
+```
+
+### Switching Between Backends
+
+```bash
+# Edit academe/.env
+# Change APP_BACKEND=monolithic  OR  APP_BACKEND=microservices
+php artisan config:clear
+# Refresh browser — topbar badge confirms active backend
+```
+
+---
+
+## Microservices API Endpoints
+
+### Student Service (port 8001)
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/students` | List all students |
+| POST | `/api/students` | Create student |
+| GET | `/api/students/{id}` | Get student by ID |
+| PUT | `/api/students/{id}` | Update student |
+| DELETE | `/api/students/{id}` | Delete student |
+
+### Course Service (port 8002)
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/courses` | List all courses |
+| POST | `/api/courses` | Create course |
+| GET | `/api/courses/{id}` | Get course by ID |
+| PUT | `/api/courses/{id}` | Update course |
+| DELETE | `/api/courses/{id}` | Delete course |
+
+### Enrollment Service (port 8003)
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/enrollments` | List all enrollments |
+| POST | `/api/enrollments` | Create enrollment |
+| GET | `/api/enrollments/{id}` | Get enrollment by ID (enriched) |
+| GET | `/api/enrollments/student/{id}` | Get enrollments by student |
+| DELETE | `/api/enrollments/{id}` | Delete enrollment |
+
+---
+
+## Architecture Pattern
+
+The monolithic backend and the Academe frontend both implement the
+**Model-View-Controller-Repository (MVCR)** pattern. Controllers delegate
+all data access to repository interfaces resolved by Laravel's service
+container — swapping backends requires only a config change.
+
+```
+APP_BACKEND=microservices  →  repositories call HTTP APIs on ports 8001–8003
+APP_BACKEND=monolithic     →  repositories call Eloquent models directly
+```
+
+---
+
+## Deliverables
+
+| Item | Location |
+|------|----------|
+| Monolithic source code | `academe/` |
+| Microservices source code | `microservices/` |
+| Architecture documentation | `docs/architecture.md` |
+| Architecture report (DOCX) | `docs/architecture.docx` |
+| Comparison table | `docs/comparison-table.md` |
+| Reflection | `docs/reflection.md` |
+| Lab 1 formal report (PDF) | `docs/lab1-report.pdf` |
+| Lab 1 source report (DOCX) | `docs/lab1-report.docx` |
+
+---
+
+## Requirements
+
+See **Prerequisites** above.
+
