@@ -18,7 +18,7 @@
 
 ## GitHub
 
-> **Repository (Lab 1):** [lab1/](./)
+> **Repository (Lab 1 Branch):** [./](./)
 
 ---
 
@@ -62,10 +62,10 @@
 From repository root, run:
 
 ```bash
-bash scripts/lab1/setup.sh
+bash scripts/setup.sh
 ```
 
-`scripts/lab1/setup.sh` does a **fresh setup**:
+`scripts/setup.sh` does a **fresh setup**:
 - installs PHP dependencies for all services and `academe/`
 - installs Node dependencies for `academe/` if needed
 - builds frontend assets if needed
@@ -76,10 +76,10 @@ bash scripts/lab1/setup.sh
 Then open 4 terminals and run:
 
 ```bash
-bash scripts/lab1/serve-microservice.sh student
-bash scripts/lab1/serve-microservice.sh course
-bash scripts/lab1/serve-microservice.sh enrollment
-bash scripts/lab1/serve-academe.sh
+bash scripts/serve-microservice.sh student
+bash scripts/serve-microservice.sh course
+bash scripts/serve-microservice.sh enrollment
+bash scripts/serve-academe.sh
 ```
 
 Open: http://localhost:8000
@@ -106,7 +106,7 @@ For scripted setup/start, use Git Bash (or WSL). If using Command Prompt/PowerSh
 
 **Terminal 1 — Student Service:**
 ```bash
-cd lab1/microservices/student-service
+cd microservices/student-service
 composer install
 cp .env.example .env
 php artisan key:generate
@@ -117,7 +117,7 @@ php artisan serve --port=8001
 
 **Terminal 2 — Course Service:**
 ```bash
-cd lab1/microservices/course-service
+cd microservices/course-service
 composer install
 cp .env.example .env
 php artisan key:generate
@@ -128,7 +128,7 @@ php artisan serve --port=8002
 
 **Terminal 3 — Enrollment Service:**
 ```bash
-cd lab1/microservices/enrollment-service
+cd microservices/enrollment-service
 composer install
 cp .env.example .env
 php artisan key:generate
@@ -139,7 +139,7 @@ php artisan serve --port=8003
 
 **Terminal 4 — Frontend (Academe):**
 ```bash
-cd lab1/academe
+cd academe
 composer install
 npm install && npm run build
 cp .env.example .env
@@ -160,7 +160,7 @@ php artisan serve
 > Provided for architectural comparison only.
 
 ```bash
-cd lab1/academe
+cd academe
 composer install
 npm install && npm run build
 cp .env.example .env
@@ -177,7 +177,7 @@ php artisan serve
 ### Switching Between Backends
 
 ```bash
-# Edit lab1/academe/.env
+# Edit academe/.env
 # Change APP_BACKEND=monolithic  OR  APP_BACKEND=microservices
 php artisan config:clear
 # Refresh browser — topbar badge confirms active backend
@@ -237,17 +237,18 @@ APP_BACKEND=monolithic     →  repositories call Eloquent models directly
 
 | Item | Location |
 |------|----------|
-| Monolithic source code | `lab1/academe/` |
-| Microservices source code | `lab1/microservices/` |
-| Architecture documentation | `lab1/docs/architecture.md` |
-| Architecture report (DOCX) | `lab1/docs/architecture.docx` |
-| Comparison table | `lab1/docs/comparison-table.md` |
-| Reflection | `lab1/docs/reflection.md` |
-| Lab 1 formal report (PDF) | `lab1/docs/lab1-report.pdf` |
-| Lab 1 source report (DOCX) | `lab1/docs/lab1-report.docx` |
+| Monolithic source code | `academe/` |
+| Microservices source code | `microservices/` |
+| Architecture documentation | `docs/architecture.md` |
+| Architecture report (DOCX) | `docs/architecture.docx` |
+| Comparison table | `docs/comparison-table.md` |
+| Reflection | `docs/reflection.md` |
+| Lab 1 formal report (PDF) | `docs/lab1-report.pdf` |
+| Lab 1 source report (DOCX) | `docs/lab1-report.docx` |
 
 ---
 
 ## Requirements
 
 See **Prerequisites** above.
+
