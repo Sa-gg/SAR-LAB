@@ -39,36 +39,30 @@
 - curl
 - Git Bash (only if using the bash script alternative below)
 
-## Setup (Windows · Mac · Linux)
+## Setup (Branch: `lab3`)
 
 From repository root:
 
 ```bash
-npm install
-npm run setup:lab3
-npm run serve:lab3
+bash scripts/lab3/setup.sh
+bash scripts/lab3/serve.sh
 ```
 
-This works on **any terminal** (Windows Command Prompt, PowerShell, Git Bash, or Terminal on Mac/Linux).
-
-`setup:lab3` does:
+`scripts/lab3/setup.sh` does:
 - installs Node dependencies if needed
 - copies `.env` if missing
 - resets `server/data/products.json` to the seeded baseline (5 products, original stock)
 
-`serve:lab3` starts the API on port 3000.
+`scripts/lab3/serve.sh` starts the API on port 3000.
 
 Why first run can take time:
 - npm must download packages on the first run
 
 Reruns are faster because `node_modules/` is reused.
 
-## Alternative: Git Bash / Linux / Mac
+## Terminal Note (Windows)
 
-```bash
-bash scripts/lab3/setup.sh
-bash scripts/lab3/serve.sh
-```
+For scripted setup/start, use Git Bash (or WSL). If using Command Prompt/PowerShell only, use the manual equivalent below.
 
 Manual equivalent:
 
