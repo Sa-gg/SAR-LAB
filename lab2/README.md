@@ -23,6 +23,10 @@
 
 > **Repository (Lab 2):** [lab2/](./)
 
+## Documentation
+
+**Lab 2 Report (Google Drive):** [Lab 2 - Microservices Edge Case Testing.docx](https://drive.google.com/file/d/12rfHxw4E_H_LlvmA5-v5RkqCi7TZIzkK/view?usp=sharing)
+
 ## Services
 
 | Service | Port | Database |

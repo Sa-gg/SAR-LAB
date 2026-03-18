@@ -20,6 +20,10 @@
 
 > **Repository (Lab 1):** [lab1/](./)
 
+## Documentation
+
+**Lab 1 Report (Google Drive):** [Lab 1 - Monolith vs Microservices.docx](https://drive.google.com/file/d/1tczBTDIJIpr_AN_cyWXxibw-GeaXxJFn/view?usp=sharing)
+
 ---
 
 ## Applications
