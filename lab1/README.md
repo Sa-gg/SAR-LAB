@@ -18,7 +18,7 @@
 
 ## GitHub
 
-> **Repository (Lab 1 Branch):** [./](./)
+> **Repository (Lab 1):** [lab1/](./)
 
 ## Documentation
 
@@ -61,15 +61,19 @@
 - curl
 - Git Bash (only if using the bash script alternative below)
 
-## Quick Start (Branch: `lab1`)
+## Quick Start (Windows · Mac · Linux)
 
-From repository root, run:
+From repository root:
 
 ```bash
-bash scripts/setup.sh
+npm install
+npm run setup:lab1
+npm run serve:lab1
 ```
 
-`scripts/setup.sh` does a **fresh setup**:
+This works on **any terminal** (Windows Command Prompt, PowerShell, Git Bash, or Terminal on Mac/Linux).
+
+`setup:lab1` does a **fresh setup**:
 - installs PHP dependencies for all services and `academe/`
 - installs Node dependencies for `academe/` if needed
 - builds frontend assets if needed
@@ -77,14 +81,7 @@ bash scripts/setup.sh
 - regenerates app keys
 - recreates all SQLite databases from scratch with seed data
 
-Then open 4 terminals and run:
-
-```bash
-bash scripts/serve-microservice.sh student
-bash scripts/serve-microservice.sh course
-bash scripts/serve-microservice.sh enrollment
-bash scripts/serve-academe.sh
-```
+`serve:lab1` uses `concurrently` to start all 4 services in one terminal with color-coded output.
 
 Open: http://localhost:8000
 
@@ -96,9 +93,22 @@ Why first run can take time:
 
 Reruns are faster because existing `vendor/`, `node_modules/`, and built assets are reused.
 
-## Terminal Note (Windows)
+## Alternative: Git Bash / Linux / Mac
 
-For scripted setup/start, use Git Bash (or WSL). If using Command Prompt/PowerShell only, use the manual commands in Option A/Option B below.
+The bash scripts have progress indicators (`[lab1][1/4]`) if you prefer them:
+
+```bash
+bash scripts/lab1/setup.sh
+```
+
+Then open 4 terminals:
+
+```bash
+bash scripts/lab1/serve-microservice.sh student
+bash scripts/lab1/serve-microservice.sh course
+bash scripts/lab1/serve-microservice.sh enrollment
+bash scripts/lab1/serve-academe.sh
+```
 
 ---
 
@@ -110,7 +120,7 @@ For scripted setup/start, use Git Bash (or WSL). If using Command Prompt/PowerSh
 
 **Terminal 1 — Student Service:**
 ```bash
-cd microservices/student-service
+cd lab1/microservices/student-service
 composer install
 cp .env.example .env
 php artisan key:generate
@@ -121,7 +131,7 @@ php artisan serve --port=8001
 
 **Terminal 2 — Course Service:**
 ```bash
-cd microservices/course-service
+cd lab1/microservices/course-service
 composer install
 cp .env.example .env
 php artisan key:generate
@@ -132,7 +142,7 @@ php artisan serve --port=8002
 
 **Terminal 3 — Enrollment Service:**
 ```bash
-cd microservices/enrollment-service
+cd lab1/microservices/enrollment-service
 composer install
 cp .env.example .env
 php artisan key:generate
@@ -143,7 +153,7 @@ php artisan serve --port=8003
 
 **Terminal 4 — Frontend (Academe):**
 ```bash
-cd academe
+cd lab1/academe
 composer install
 npm install && npm run build
 cp .env.example .env
@@ -164,7 +174,7 @@ php artisan serve
 > Provided for architectural comparison only.
 
 ```bash
-cd academe
+cd lab1/academe
 composer install
 npm install && npm run build
 cp .env.example .env
@@ -181,7 +191,7 @@ php artisan serve
 ### Switching Between Backends
 
 ```bash
-# Edit academe/.env
+# Edit lab1/academe/.env
 # Change APP_BACKEND=monolithic  OR  APP_BACKEND=microservices
 php artisan config:clear
 # Refresh browser — topbar badge confirms active backend
@@ -241,18 +251,17 @@ APP_BACKEND=monolithic     →  repositories call Eloquent models directly
 
 | Item | Location |
 |------|----------|
-| Monolithic source code | `academe/` |
-| Microservices source code | `microservices/` |
-| Architecture documentation | `docs/architecture.md` |
-| Architecture report (DOCX) | `docs/architecture.docx` |
-| Comparison table | `docs/comparison-table.md` |
-| Reflection | `docs/reflection.md` |
-| Lab 1 formal report (PDF) | `docs/lab1-report.pdf` |
-| Lab 1 source report (DOCX) | `docs/lab1-report.docx` |
+| Monolithic source code | `lab1/academe/` |
+| Microservices source code | `lab1/microservices/` |
+| Architecture documentation | `lab1/docs/architecture.md` |
+| Architecture report (DOCX) | `lab1/docs/architecture.docx` |
+| Comparison table | `lab1/docs/comparison-table.md` |
+| Reflection | `lab1/docs/reflection.md` |
+| Lab 1 formal report (PDF) | `lab1/docs/lab1-report.pdf` |
+| Lab 1 source report (DOCX) | `lab1/docs/lab1-report.docx` |
 
 ---
 
 ## Requirements
 
 See **Prerequisites** above.
-
