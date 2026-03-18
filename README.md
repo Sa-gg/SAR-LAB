@@ -11,6 +11,10 @@
 | 4 | Mogat, Ela Mae Trojillo |
 | 5 | Tibo-oc, Paul Felippe Gelle |
 
+## Documentation
+
+**Lab 3 Report (Google Drive):** [Lab 3 - Business Logic API.docx](https://drive.google.com/file/d/1q9tHKl4EtrPbDu1Wmrph7LR2gFoxvt9V/view?usp=sharing)
+
 ## System Architecture
 
 | Layer | File | Responsibility |
